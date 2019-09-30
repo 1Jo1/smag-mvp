@@ -29,19 +29,19 @@ func New(kafkaAddress string) *RenewingAddresses {
 	s := &RenewingAddresses{}
 	s.reachedLimitQReader = kafka.NewReader(kafka.ReaderConfig{
 		Brokers:        []string{kafkaAddress},
-		GroupID:        "user_follow_graph_scraper",
-		Topic:          "user_names",
-		CommitInterval: time.Second,
+		GroupID:        "renewing_addresses_group",
+		Topic:          "reached_limit",
+		CommitInterval: time.Minute * 70,
 	})
 	s.renewedAddressQWriter = kafka.NewWriter(kafka.WriterConfig{
 		Brokers:  []string{kafkaAddress},
-		Topic:    "user_follow_infos",
+		Topic:    "renewed_elastic_ip",
 		Balancer: &kafka.LeastBytes{},
 		Async:    true,
 	})
 	s.errQWriter = kafka.NewWriter(kafka.WriterConfig{
 		Brokers:  []string{kafkaAddress},
-		Topic:    "user_scrape_errors",
+		Topic:    "renewing_elastic_ip_errors",
 		Balancer: &kafka.LeastBytes{},
 		Async:    false,
 	})
