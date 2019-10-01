@@ -31,7 +31,7 @@ func New(kafkaAddress string) *RenewingAddresses {
 		Brokers:        []string{kafkaAddress},
 		GroupID:        "renewing_addresses_group",
 		Topic:          "reached_limit",
-		CommitInterval: time.Minute * 70,
+		CommitInterval: time.Minute * 10,
 	})
 	s.renewedAddressQWriter = kafka.NewWriter(kafka.WriterConfig{
 		Brokers:  []string{kafkaAddress},
