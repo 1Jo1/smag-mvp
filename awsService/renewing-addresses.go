@@ -249,3 +249,13 @@ func (r *RenewingAddresses) sendErrorMessage(m kafka.Message, instanceId string,
 	r.errQWriter.WriteMessages(context.Background(), kafka.Message{Value: serializedErr})
 	r.reachedLimitQReader.CommitMessages(context.Background(), m)
 }
+
+func (r *RenewingAddresses) Close() {
+	r.Stop()
+	r.WaitUntilStopped(time.Second * 3)
+
+	r.errQWriter.Close()
+	r.reachedLimitQReader.Close()
+	r.renewedAddressQWriter.Close()
+	r.MarkAsClosed()
+}
