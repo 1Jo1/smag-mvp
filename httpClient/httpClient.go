@@ -109,6 +109,7 @@ func getLocalIpAddresses(count int) ([]string, error) {
 		panic(fmt.Sprintf("Not Enough Local Ip Addresses, Requirement: %d \n", count))
 	}
 
+	fmt.Println(localAddresses)
 	return localAddresses[:(count - 1)], nil
 }
 
