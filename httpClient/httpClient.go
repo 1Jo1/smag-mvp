@@ -100,8 +100,10 @@ func getLocalIpAddresses(count int) ([]string, error) {
 		if err != nil {
 			return nil, err
 		}
-		for _, address := range addrs {
-			localAddresses = append(localAddresses, address.String())
+		if (networkInterface.Name == "eth0") || (networkInterface.Name == "eth1") {
+			for _, address := range addrs {
+				localAddresses = append(localAddresses, address.String())
+			}
 		}
 	}
 
