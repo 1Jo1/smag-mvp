@@ -219,6 +219,7 @@ func (h *HttpClient) WithRetries(times int, f func() error) error {
 			return nil
 		}
 
+		fmt.Println("Test11")
 		fmt.Println(err)
 		foundAddress, err := h.checkIfIPReachedTheLimit(err)
 
