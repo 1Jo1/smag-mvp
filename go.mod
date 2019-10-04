@@ -10,6 +10,7 @@ require (
 	github.com/dgraph-io/dgo v0.0.0-20190801004348-3d281925f1d3
 	github.com/gobwas/glob v0.2.3 // indirect
 	github.com/gocolly/colly v1.2.0
+	github.com/jawher/mow.cli v1.1.0 // indirect
 	github.com/johnnadratowski/golang-neo4j-bolt-driver v0.0.0-20181101021923-6b24c0085aae
 	github.com/kennygrant/sanitize v1.2.4 // indirect
 	github.com/lib/pq v1.2.0
