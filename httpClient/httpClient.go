@@ -322,6 +322,7 @@ func (h *HttpClient) waitForRenewElasticIpRequest() (*models.RenewingAddresses, 
 	message, err := h.renewedAddressQReader.FetchMessage(context.Background())
 	fmt.Println("waitForRenewElasticIpRequest Finished")
 	if err != nil {
+		fmt.Println("waitForRenewElasticIpRequest error")
 		return nil, err
 	}
 
