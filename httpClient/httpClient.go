@@ -241,6 +241,7 @@ func (h *HttpClient) checkIfIPReachedTheLimit(err error) (bool, error) {
 	fmt.Println("checkIfIPReachedTheLimit")
 	switch t := err.(type) {
 	case *json.SyntaxError:
+		fmt.Println("SyntaxError")
 		addresses, foundAddress := h.checkAvailableAddresses()
 
 		if foundAddress {
