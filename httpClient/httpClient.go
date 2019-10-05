@@ -268,6 +268,8 @@ func (h *HttpClient) checkIfIPReachedTheLimit(err error) (bool, error) {
 				}
 			}
 		}
+	case *json.UnmarshalTypeError:
+		fmt.Println("UnmarshalTypeError")
 	default:
 		fmt.Println("Found Wrong Json Type Error ", t)
 		return false, err
