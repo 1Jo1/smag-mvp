@@ -238,6 +238,7 @@ func (h *HttpClient) WithRetries(times int, f func() error) error {
 }
 
 func (h *HttpClient) checkIfIPReachedTheLimit(err error) (bool, error) {
+	fmt.Println("checkIfIPReachedTheLimit")
 	switch t := err.(type) {
 	case *json.SyntaxError:
 		addresses, foundAddress := h.checkAvailableAddresses()
@@ -270,6 +271,10 @@ func (h *HttpClient) checkIfIPReachedTheLimit(err error) (bool, error) {
 		}
 	case *json.UnmarshalTypeError:
 		fmt.Println("UnmarshalTypeError")
+	case *json.InvalidUnmarshalError:
+		fmt.Println("InvalidUnmarchedError")
+	case *json.UnsupportedTypeError:
+		fmt.Println("UnsupportedTypeError")
 	default:
 		fmt.Println("Found Wrong Json Type Error ", t)
 		return false, err
