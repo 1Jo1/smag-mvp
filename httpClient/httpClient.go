@@ -253,8 +253,9 @@ func (h *HttpClient) checkIfIPReachedTheLimit(err error) (bool, error) {
 				return false, err
 			}
 
-			renewedAddresses := models.RenewingAddresses{InstanceId: "", LocalIps: []string{}}
+			renewedAddresses := models.RenewingAddresses{}
 
+			fmt.Println("H.InstanceId: ", h.instanceId)
 			for renewedAddresses.InstanceId != h.instanceId {
 
 				renewedAddresses, err := h.waitForRenewElasticIpRequest()
