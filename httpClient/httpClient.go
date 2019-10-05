@@ -31,8 +31,8 @@ func New(localAddressCount int, kafkaAddress string) *HttpClient {
 	client := &HttpClient{}
 	client.renewedAddressQReader = kafka.NewReader(kafka.ReaderConfig{
 		Brokers:        []string{kafkaAddress},
-		GroupID:        "renewed_elastic_ip",
-		Topic:          "user_names",
+		GroupID:        "instagram_group1",
+		Topic:          "renewed_elastic_ip",
 		CommitInterval: time.Minute * 10,
 	})
 
