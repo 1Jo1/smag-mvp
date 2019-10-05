@@ -320,11 +320,12 @@ func (h *HttpClient) sendRenewElasticIpRequestToAmazonService(addresses []string
 func (h *HttpClient) waitForRenewElasticIpRequest() (*models.RenewingAddresses, error) {
 	fmt.Println("waitForRenewElasticIpRequest")
 	message, err := h.renewedAddressQReader.FetchMessage(context.Background())
-	fmt.Println("waitForRenewElasticIpRequest Finished")
+	fmt.Println("waitForRenewElasticIpRequest Finished: ")
 	if err != nil {
 		fmt.Println("waitForRenewElasticIpRequest error")
 		return nil, err
 	}
+	fmt.Println("Wait Message ", message.Value)
 
 	var renewedAddresses models.RenewingAddresses
 	err = json.Unmarshal(message.Value, &renewedAddresses)
