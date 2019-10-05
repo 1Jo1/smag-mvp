@@ -296,6 +296,7 @@ func (h *HttpClient) checkAvailableAddresses() ([]string, bool) {
 			if err != nil {
 				panic(err)
 			}
+			fmt.Println("Update Client")
 			return addresses, true
 		}
 	}
