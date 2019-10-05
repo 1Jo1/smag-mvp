@@ -318,8 +318,9 @@ func (h *HttpClient) sendRenewElasticIpRequestToAmazonService(addresses []string
 }
 
 func (h *HttpClient) waitForRenewElasticIpRequest() (*models.RenewingAddresses, error) {
+	fmt.Println("waitForRenewElasticIpRequest")
 	message, err := h.renewedAddressQReader.FetchMessage(context.Background())
-
+	fmt.Println("waitForRenewElasticIpRequest Finished")
 	if err != nil {
 		return nil, err
 	}
