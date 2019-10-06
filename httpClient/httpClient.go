@@ -219,10 +219,6 @@ func (h *HttpClient) WithRetries(times int, f func() error) error {
 			return nil
 		}
 
-		switch err := err.(type) {
-		default:
-			fmt.Println("Error Type: ", err)
-		}
 		fmt.Println(err)
 		foundAddress, err := h.checkIfIPReachedTheLimit(err)
 		fmt.Println("FoundAddress: ", foundAddress)
