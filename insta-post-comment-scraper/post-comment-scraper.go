@@ -101,6 +101,8 @@ func (p *PostCommentScraper) Run() {
 		}
 		p.postIdQReader.CommitMessages(context.Background(), message)
 		counter++
+
+		time.Sleep(time.Millisecond * 600)
 	}
 }
 
