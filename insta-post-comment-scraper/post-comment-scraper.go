@@ -57,6 +57,7 @@ func (p *PostCommentScraper) Run() {
 
 		message, err := p.postIdQReader.FetchMessage(context.Background())
 
+		fmt.Println("New Message")
 		if err != nil {
 			fmt.Println(err)
 			continue
