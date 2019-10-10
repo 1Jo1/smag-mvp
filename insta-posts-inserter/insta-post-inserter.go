@@ -90,6 +90,7 @@ func (i *InstaPostInserter) Run() {
 		if err != nil {
 			panic(fmt.Errorf("comments inserter failed %s ", err))
 		}
+		fmt.Println("Insert Post: ", post.ShortCode)
 		i.postQReader.CommitMessages(context.Background(), message)
 	}
 }
