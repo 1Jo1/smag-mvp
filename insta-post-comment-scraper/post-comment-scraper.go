@@ -70,6 +70,7 @@ func (p *PostCommentScraper) Run() {
 			continue
 		}
 
+		fmt.Println("ShortCode: ", post.ShortCode)
 		var postsComments *models.InstaPostComments
 		counter++
 		err = p.httpClient.WithRetries(3, func() error {
@@ -126,7 +127,6 @@ func (p *PostCommentScraper) Scrape(shortCode string) (*models.InstaPostComments
 }
 
 func (p *PostCommentScraper) sendComments(postsComments *models.InstaPostComments, postId models.InstagramPost) error {
-	fmt.Println("ShortCode: ", postId.ShortCode)
 	jsonTest, _ := json.Marshal(postsComments)
 	fmt.Println("Print InstaPostComments: ", string(jsonTest))
 	fmt.Println("sendComments: ", len(postsComments.Data.ShortcodeMedia.EdgeMediaToParentComment.Edges))
