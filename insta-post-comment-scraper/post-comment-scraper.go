@@ -73,9 +73,9 @@ func (p *PostCommentScraper) Run() {
 		var postsComments *models.InstaPostComments
 		counter++
 		err = p.httpClient.WithRetries(3, func() error {
+			time.Sleep(1400 * time.Millisecond)
 			instaPostComments, err := p.httpClient.ScrapePostComments(post.ShortCode)
 
-			time.Sleep(900 * time.Millisecond)
 			if err != nil {
 				return err
 			}
@@ -111,6 +111,7 @@ func (p *PostCommentScraper) Run() {
 
 func (p *PostCommentScraper) sendComments(postsComments *models.InstaPostComments, postId models.InstagramPost) error {
 
+	fmt.Println("sendComments")
 	messages := make([]kafka.Message, 0, len(postsComments.Data.ShortcodeMedia.EdgeMediaToParentComment.Edges))
 	for _, element := range postsComments.Data.ShortcodeMedia.EdgeMediaToParentComment.Edges {
 		if element.Node.ID != "" {
