@@ -135,6 +135,7 @@ func getLocalIpAddresses(count int) []string {
 		panic(fmt.Sprintf("Not Enough Local Ip Addresses, Requirement: %d \n", count))
 	}
 
+	fmt.Println("All LocalAddresses: ", localAddresses)
 	return localAddresses[:(count - 1)]
 }
 
