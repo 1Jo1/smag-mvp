@@ -53,13 +53,8 @@ func (i *InstaPostInserter) findOrCreateUser(username string) (userID int, err e
 			return 0, err
 		}
 
-		result, err := i.db.Exec(`INSERT INTO users(user_name) VALUES($1) RETURNING id`, username)
-		if err != nil {
-			return 0, err
-		}
-
-		insertedUserID, err := result.LastInsertId()
-
+		var insertedUserID int
+		err := i.db.QueryRow(`INSERT INTO users(user_name) VALUES($1) RETURNING id`, username).Scan(&insertedUserID)
 		if err != nil {
 			return 0, err
 		}
@@ -101,13 +96,13 @@ func (i *InstaPostInserter) Run() {
 
 func (i *InstaPostInserter) insertPost(post models.InstagramPost) error {
 
-	_, err := i.findOrCreateUser(post.UserId)
+	userID, err := i.findOrCreateUser(post.UserId)
 
 	if err != nil {
 		return err
 	}
 
-	_, err = i.db.Exec(`INSERT INTO posts(user_id, post_id, short_code, picture_url) VALUES($1,$2,$3,$4) ON CONFLICT(post_id) DO UPDATE SET short_code=$2, picture_url=$4`, post.UserId, post.PostId, post.ShortCode, post.PictureUrl)
+	_, err = i.db.Exec(`INSERT INTO posts(user_id, post_id, short_code, picture_url) VALUES($1,$2,$3,$4) ON CONFLICT(post_id) DO UPDATE SET short_code=$2, picture_url=$4`, userID, post.PostId, post.ShortCode, post.PictureUrl)
 
 	if err != nil {
 		return err
