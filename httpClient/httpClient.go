@@ -264,6 +264,7 @@ func (h *HttpClient) ScrapePostComments(shortCode string) (models.InstaPostComme
 	if response.StatusCode != 200 {
 		return instaPostComment, &HttpStatusError{fmt.Sprintf("Error HttpStatus: %s", response.StatusCode)}
 	}
+	fmt.Println("ScrapePostComments got response")
 	body, err := ioutil.ReadAll(response.Body)
 	if err != nil {
 		return instaPostComment, err
@@ -337,6 +338,37 @@ func (h *HttpClient) checkIfIPReachedTheLimit(err error) (bool, error) {
 		fmt.Println("InvalidUnmarchedError")
 	case *json.UnsupportedTypeError:
 		fmt.Println("UnsupportedTypeError")
+	case *HttpStatusError:
+		fmt.Println("HttpStatusError")
+		addresses, foundAddress := h.checkAvailableAddresses()
+
+		if foundAddress {
+			return true, nil
+		}
+		if h.localAddressesReachLimit[h.currentAddress] == false {
+			err := h.sendRenewElasticIpRequestToAmazonService(addresses)
+			if err != nil {
+				return false, err
+			}
+
+			renewedAddresses := models.RenewingAddresses{}
+
+			fmt.Println("H.InstanceId: ", h.instanceId)
+			for renewedAddresses.InstanceId != h.instanceId {
+
+				renewedAddresses, err := h.waitForRenewElasticIpRequest()
+				if err != nil {
+					return false, err
+				}
+
+				if renewedAddresses.InstanceId == h.instanceId {
+					for ip := range h.localAddressesReachLimit {
+						h.localAddressesReachLimit[ip] = true
+					}
+					return true, nil
+				}
+			}
+		}
 	default:
 		fmt.Println("Found Wrong Json Type Error ", t)
 		return false, err
