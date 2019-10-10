@@ -111,6 +111,7 @@ func (p *PostCommentScraper) Run() {
 
 func (p *PostCommentScraper) sendComments(postsComments *models.InstaPostComments, postId models.InstagramPost) error {
 
+	fmt.Println("Print InstaPostComments: ", postsComments)
 	fmt.Println("sendComments: ", len(postsComments.Data.ShortcodeMedia.EdgeMediaToParentComment.Edges))
 	messages := make([]kafka.Message, 0, len(postsComments.Data.ShortcodeMedia.EdgeMediaToParentComment.Edges))
 	for _, element := range postsComments.Data.ShortcodeMedia.EdgeMediaToParentComment.Edges {
