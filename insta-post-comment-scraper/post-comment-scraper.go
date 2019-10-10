@@ -75,7 +75,7 @@ func (p *PostCommentScraper) Run() {
 		err = p.httpClient.WithRetries(3, func() error {
 			instaPostComments, err := p.httpClient.ScrapePostComments(post.ShortCode)
 
-			time.Sleep(600 * time.Millisecond)
+			time.Sleep(900 * time.Millisecond)
 			if err != nil {
 				return err
 			}
@@ -105,7 +105,7 @@ func (p *PostCommentScraper) Run() {
 		p.postIdQReader.CommitMessages(context.Background(), message)
 		counter++
 
-		time.Sleep(time.Millisecond * 600)
+		time.Sleep(time.Millisecond * 900)
 	}
 }
 
