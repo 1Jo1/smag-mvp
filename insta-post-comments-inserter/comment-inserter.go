@@ -47,7 +47,7 @@ func (c *InstaCommentInserter) Run() {
 		c.MarkAsStopped()
 	}()
 
-	fmt.Println("starting inserter")
+	fmt.Println("starting Comments inserter")
 	for c.IsRunning() {
 		m, err := c.qReader.FetchMessage(context.Background())
 		if err != nil {
