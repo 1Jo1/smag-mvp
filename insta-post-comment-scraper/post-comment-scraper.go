@@ -85,6 +85,7 @@ func (p *PostCommentScraper) Run() {
 		})
 
 		if err != nil {
+			fmt.Println("error: ", err)
 			errorMessage := models.InstaCommentScrapError{
 				PostId: post.PostId,
 				Error:  err.Error(),
