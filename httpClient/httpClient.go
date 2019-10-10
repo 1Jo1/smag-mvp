@@ -136,7 +136,7 @@ func getLocalIpAddresses(count int) []string {
 	}
 
 	fmt.Println("All LocalAddresses: ", localAddresses)
-	return localAddresses[:(count - 1)]
+	return localAddresses[:count]
 }
 
 func (h *HttpClient) getClient(localIp string) (*http.Client, error) {
