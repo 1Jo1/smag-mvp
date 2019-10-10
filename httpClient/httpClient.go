@@ -59,6 +59,7 @@ func New(localAddressCount int, kafkaAddress string) *HttpClient {
 	client.browserAgent = userAgent
 	client.localAddressesReachLimit = make(map[string]bool)
 	addresses := getLocalIpAddresses(localAddressCount)
+	//addresses := []string{"192.168.178.41"}
 
 	for _, localIp := range addresses {
 		client.localAddressesReachLimit[localIp] = true
